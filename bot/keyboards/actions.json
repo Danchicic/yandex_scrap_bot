@@ -1,0 +1,14 @@
+[
+  {
+    "text": "courses",
+    "func": "create_courses_kb"
+  },
+  {
+    "text": "parts",
+    "func": "create_directories_kb"
+  },
+  {
+    "text": "lesson",
+    "func": "create_files_kb"
+  }
+]

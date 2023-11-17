@@ -1,0 +1,11 @@
+Keyboards:
+    create kb for dir
+    create kb for files
+
+Services:
+    create func for quiz's
+    create func for test's
+Bot:
+    create the picture how bot work with fsm model
+    *if need, include redis
+create comments to funcs
