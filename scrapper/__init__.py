@@ -1,8 +1,10 @@
 from bs4 import BeautifulSoup
 
 
-def main():
+# file to get quiz's from html file
+# func to scrap tasks
 
+def main():
     pass
 
 

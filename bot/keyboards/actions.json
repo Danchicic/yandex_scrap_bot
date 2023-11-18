@@ -4,7 +4,7 @@
     "func": "create_courses_kb"
   },
   {
-    "text": "parts",
+    "text": "directory",
     "func": "create_directories_kb"
   },
   {

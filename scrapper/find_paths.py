@@ -2,6 +2,12 @@ import os
 
 
 def get_themes(course_path, part_path: str) -> dict:
+    """
+    get themes from ex.:django/routes/themes
+    :param course_path:
+    :param part_path:
+    :return:
+    """
     theme_and_index = dict()
     for theme in os.listdir(f"{course_path}/{part_path}"):
         if '.' not in theme:
@@ -14,6 +20,16 @@ def get_themes(course_path, part_path: str) -> dict:
 
 
 def get_tasks(new_path_zero, theme_file) -> list:
+    """
+    get tasks from lesson of part
+    like django/1/routes/task1.mht
+    or
+    django/1/routes/task1/task1.mht
+
+    :param new_path_zero:
+    :param theme_file:
+    :return:
+    """
     tasks_path = []
     for files in os.listdir(f"{new_path_zero}/{theme_file}"):
         if 'task' in files.lower():
@@ -30,6 +46,13 @@ def get_tasks(new_path_zero, theme_file) -> list:
 
 
 def get_theme_files_and_tasks(theme_and_index: dict, course_path, part_path) -> tuple[list, list]:
+    """
+    get files from ex.: django/1/routes
+    :param theme_and_index:
+    :param course_path:
+    :param part_path:
+    :return:
+    """
     quiz_files = []
     tasks = []
     for index, filename in theme_and_index.items():
@@ -55,6 +78,13 @@ def get_theme_files_and_tasks(theme_and_index: dict, course_path, part_path) -> 
 
 
 def get_parts_path(course_path) -> tuple[list, list]:
+    """
+    func to get parts of courses
+    like django/1, django/2
+
+    :param course_path:
+    :return:
+    """
     quiz, task = [], []
     for part_path in os.listdir(course_path):
         if '.' not in part_path:
@@ -68,12 +98,18 @@ def get_parts_path(course_path) -> tuple[list, list]:
 
 
 def get_main_paths():
+    """
+    get courses path
+    :return:
+    """
     path_zero = '/Users/danya/Desktop/курсы'
     main_path = []
     for filename in os.listdir(path_zero):
         if '.' not in filename:
             main_path.append(f"{path_zero}/{filename}")
-    main_path = ['/Users/danya/Desktop/курсы/Django', '/Users/danya/Desktop/курсы/middle']
+
+    # main_path = ['/Users/danya/Desktop/курсы/Django', '/Users/danya/Desktop/курсы/middle']
+
     tasks_path = []
     quiz_files = []
     for course_path in main_path:
@@ -85,6 +121,10 @@ def get_main_paths():
 
 
 def main():
+    """
+    get paths of files and tasks
+    :return:
+    """
     tasks, quiz, = get_main_paths()
     print(tasks, quiz, sep='\n')
 

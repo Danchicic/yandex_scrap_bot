@@ -3,14 +3,19 @@ import logging
 from aiogram import Bot, Dispatcher
 import handlers
 
+# main file of bot
+
+
+# CONFIG!!!
 token = '6639949950:AAHpARLzvHi2ifbZn54DyEzep2A_fYZPgns'
-# Инициализируем логгер
+
+# logger initializing
 logger = logging.getLogger(__name__)
 
 
-# Функция конфигурирования и запуска бота
+# configuration and turn on bot
 async def main():
-    # Конфигурируем логирование
+    # configurate logging
     logging.basicConfig(
         level=logging.INFO,
         format='%(filename)s:%(lineno)d #%(levelname)-8s '

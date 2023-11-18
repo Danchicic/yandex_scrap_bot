@@ -1,6 +1,8 @@
 import os
 
 
+# file to additional func
+
 def create_courses():
     courses = []
     path_zero = '/Users/danya/Desktop/курсы'

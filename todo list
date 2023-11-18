@@ -8,4 +8,10 @@ Services:
 Bot:
     create the picture how bot work with fsm model
     *if need, include redis
-create comments to funcs
+Paths:
+    create confing file with local paths to use
+Services:
+    delete quiz's answers from html and mht files (services.work with html)
+    copy code from task.mht file and make func in bot to compare code
+
+fill readme
