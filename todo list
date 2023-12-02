@@ -2,16 +2,29 @@ Keyboards:
     create kb for dir
     create kb for files
 
-Services:
-    create func for quiz's
-    create func for test's
 Bot:
     create the picture how bot work with fsm model
     *if need, include redis
 Paths:
     create confing file with local paths to use
+
 Services:
+    create func for quiz's
     delete quiz's answers from html and mht files (services.work with html)
-    copy code from task.mht file and make func in bot to compare code
+        # now: find answers, find correct answers
+        #save files in root directory
+        make func for bot with questions and answers
+
+
+    create func for test's
+        copy code from task.mht file and make func in bot to compare the code
+
+
 
 fill readme
+
+переписать все html ки, удалив тесты, сохранить материал курса без тестов и заниматься по нему,
+ html начальный оставить для бота
+
+create new files without tests
+convert mht to html

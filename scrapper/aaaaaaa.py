@@ -1,7 +1,7 @@
 import os
 from bs4.element import Tag
 from bs4 import BeautifulSoup
-from find_paths import get_main_paths
+
 from scrapper.filters_for_soup import quiz_filter, quiz_answers_filter
 
 
@@ -20,7 +20,7 @@ def get_files(path: str):
             else:
                 tasks.append(f"{path}{filename}")
 
-    # print(files_path, tasks)
+    print(files_path, tasks)
 
 
 def delete_answers_from_file(path: str) -> dict[str, dict[tuple[str], list]]:
@@ -30,15 +30,11 @@ def delete_answers_from_file(path: str) -> dict[str, dict[tuple[str], list]]:
     :param paths:
     :return: dict like {'question?': {ans1: bool(0, 1)} } where 1 is mean answer is True
     """
-    if 'mht' in path:
-        print(path)
-
     tests_dict: dict[str, dict[tuple[str], list]] = {}
     # open file with test
     with open(path) as f:
         soup = BeautifulSoup(f, 'lxml')
-    if 'mht' in path:
-        print(soup.text)
+
     # find quiz's
     tests = soup.find_all(quiz_filter)
     # save page
@@ -60,20 +56,16 @@ def delete_answers_from_file(path: str) -> dict[str, dict[tuple[str], list]]:
             text_answers.append(ans.find('label').text)
             correct.append(isinstance(ans.find(class_='quiz-form-choice__feedback'), Tag))
         tests_dict[question.text] = {tuple(text_answers): correct}
-    if 'mht' in path:
-        print(tests_dict)
+
     with open('new_html.html', 'w+') as new_file:
         new_file.writelines(page)
-    # print(tests_dict)
+    print(tests_dict)
     return tests_dict
 
 
 def replace_all_tests():
     with open('tests_file.txt', 'w+') as f:
-        paths_list, tasks_list = get_main_paths()
-        print(paths_list)
-        # func from find_paths
-        for path in tasks_list:
+        for path in paths_list:
             test = delete_answers_from_file(path)
             f.write(f"{path}::{test}\n")
 

@@ -32,8 +32,9 @@ def get_tasks(new_path_zero, theme_file) -> list:
     """
     tasks_path = []
     for files in os.listdir(f"{new_path_zero}/{theme_file}"):
-        if 'task' in files.lower():
-            if 'mht' not in files:
+        if 'task' in files.lower() and 'files' not in files.lower():
+
+            if 'mht' not in files and 'html' not in files:
                 tasks_path.append(f'{new_path_zero}/{theme_file}/{files}/{files}.mht')
             else:
                 tasks_path.append(f'{new_path_zero}/{theme_file}/{files}')
@@ -60,12 +61,12 @@ def get_theme_files_and_tasks(theme_and_index: dict, course_path, part_path) -> 
         new_path_zero = f"{course_path}/{part_path}/{filename}"
         # print(new_path_zero)
         for theme_file in os.listdir(new_path_zero):
-            if '.html' in theme_file:
+            if '.html' in theme_file or '.mht' in theme_file:
                 quiz_files.append(f"{new_path_zero}/{theme_file}")
                 # print(theme_file)
 
             # finding a directory +
-            elif 'files' not in theme_file and '.mht' not in theme_file and '.DS' not in theme_file and '.pdf' not in theme_file and '.zip' not in theme_file:
+            elif "4_files" not in theme_file and  'files' not in theme_file and '.mht' not in theme_file and '.DS' not in theme_file and '.pdf' not in theme_file and '.zip' not in theme_file:
                 # print('+ tasks', theme_file)
                 tasks += get_tasks(new_path_zero, theme_file)
     # print('quiz_files and tasks', quiz_files, tasks, sep='\n')
@@ -117,7 +118,7 @@ def get_main_paths():
         quiz_files += t1
         tasks_path += t2
     # print('main_func', tasks_path, quiz_files)
-    return tasks_path, quiz_files
+    return sorted(tasks_path), sorted(quiz_files)
 
 
 def main():

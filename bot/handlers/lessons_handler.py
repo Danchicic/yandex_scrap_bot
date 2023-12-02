@@ -27,7 +27,10 @@ async def send_lesson_files(message: Message, state: FSMContext):
     config.paths.lesson_path = config.paths.part_path + message.text
     print(config.paths.lesson_path)
     files_path, tasks_path = get_files(path=config.paths.lesson_path)
-    delete_answers(files_path)
+    question: str
+    ans: dict[str, bool]
+    for question in delete_answers(files_path):
+        text, kb =
     for pages_path in files_path:
         await message.reply_document(FSInputFile(pages_path))
 
