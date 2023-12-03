@@ -10,8 +10,8 @@ async def set_main_menu(bot: Bot):
     :return:
     """
     main_menu_commands = [
-        BotCommand(command='comps', description='Выбрать курс'),
-        BotCommand(command='parts', description='Изменить ВУЗ'),
-
+        BotCommand(command='start', description='Выбрать курс'),
+        BotCommand(command='part', description='Выбрать часть'),
+        BotCommand(command='lesson', description='Выбрать тест'),
     ]
     await bot.set_my_commands(main_menu_commands)

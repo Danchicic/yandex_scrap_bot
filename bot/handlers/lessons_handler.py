@@ -1,41 +1,29 @@
-from aiogram import Router
-from aiogram.types import Message, FSInputFile
+from aiogram import Router, F
+from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
-from lexicon import lexicon_ru
-from aiogram.filters import StateFilter
+
 from keyboards.main_keyboards import Keyboard
 from FSM import FSMUser
 from config import config
 
-from scrapper.work_with_html import get_files, delete_answers
+from scrapper.work_with_html import get_files
 
 lesson_router = Router()
-lesson_router.message.filter(StateFilter(FSMUser.choose_lesson))
 
 
-@lesson_router.message()
+# lesson_router.message.filter(StateFilter(FSMUser.choose_lesson))
+
+
+@lesson_router.message(FSMUser.choose_lesson)
+@lesson_router.message(F.text == '/lesson')
 async def send_lesson_files(message: Message, state: FSMContext):
-    """
-    send quiz file
-    set state task if tasks == 1
+    if message.text != "/lesson":
+        config.paths.lesson_path = config.paths.part_path + message.text
 
-    :param message:
-    :param state:
-    :return:
-    """
+    files = get_files(config.paths.lesson_path)
+    # print('files', files)
+    await message.answer(text='Выбери файл', reply_markup=Keyboard.create_kb_from_list(files))
 
-    config.paths.lesson_path = config.paths.part_path + message.text
-    print(config.paths.lesson_path)
-    files_path, tasks_path = get_files(path=config.paths.lesson_path)
-    question: str
-    ans: dict[str, bool]
-    for question in delete_answers(files_path):
-        text, kb =
-    for pages_path in files_path:
-        await message.reply_document(FSInputFile(pages_path))
+    # files_path, tasks_path = get_files(path=config.paths.lesson_path)
 
-    if tasks_path:
-        pass
-    # send htmls files
-    # await message.answer()
-    pass
+    await state.set_state(FSMUser.chose_test)

@@ -1,8 +1,8 @@
 import os
 
-from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
-from aiogram.utils.keyboard import ReplyKeyboardBuilder
-from lexicon import courses
+from aiogram.types import KeyboardButton, ReplyKeyboardMarkup, InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.utils.keyboard import ReplyKeyboardBuilder, InlineKeyboardBuilder
+from lexicon import courses, LEXICON
 import json
 
 
@@ -11,7 +11,7 @@ class Keyboard:
     class keyboard have builders for kb's
     """
 
-    def __init__(self, kb):
+    def __init__(self, kb=''):
         """
         initializing kb name and
         file with func to use
@@ -51,6 +51,40 @@ class Keyboard:
         buttons: list[KeyboardButton] = [KeyboardButton(text=course) for course in courses]
         builder.row(*buttons, width=4)
         return builder.as_markup(resize_keyboard=True, one_time_keyboard=True)
+
+    @staticmethod
+    def create_kb_from_list(buttons_names: list) -> ReplyKeyboardMarkup:
+        """
+        creating kb from the list of button's
+        :param buttons_names: button names list
+        :rtype: kb object
+        """
+        builder = ReplyKeyboardBuilder()
+        buttons: list[KeyboardButton] = [KeyboardButton(text=button) for button in buttons_names]
+        builder.row(*buttons, width=4)
+        return builder.as_markup(resize_keyboard=True, one_time_keyboard=True)
+
+    @staticmethod
+    def create_inline_answers_kb(correct: list[bool], next_buttons: list[str]) -> InlineKeyboardMarkup:
+        """
+        :param next_buttons:
+        :param correct: correct answers
+        :return:
+        """
+        buttons: list[InlineKeyboardButton] = []
+        kb_builder = InlineKeyboardBuilder()
+        for i in range(1, len(correct) + 1):
+            # print(i)
+            buttons.append(
+                InlineKeyboardButton(text=str(i), callback_data=str(correct[i - 1]))
+            )
+        if next_buttons:
+            kb_builder.row(*[InlineKeyboardButton(
+                text=LEXICON[button] if button in LEXICON else button,
+                callback_data=button) for button in next_buttons]
+                           )
+        kb_builder.row(*buttons, width=2)
+        return kb_builder.as_markup()
 
     def get_kb(self, *args):
         """

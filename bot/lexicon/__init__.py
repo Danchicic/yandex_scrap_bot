@@ -10,7 +10,12 @@ lexicon_ru = {
     'choose_part': 'Выбери часть',
     'choose_lesson': 'Выбери урок',
     'choose_page': 'Выбери страницу',
+    'test_not_founded': 'В этом модуле тест не найден 😔',
+    'all_tests': 'Больше нет тестов'
 
 }
-
+LEXICON = {
+    'forward': '>>',
+    'backward': '<<',
+}
 courses = create_courses()

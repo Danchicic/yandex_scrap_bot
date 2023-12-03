@@ -7,5 +7,5 @@ class FSMUser(StatesGroup):
     choose_part = State()
     choose_lesson = State()
     choose_page = State()
-
     chose_test = State()
+    solve_test = State()

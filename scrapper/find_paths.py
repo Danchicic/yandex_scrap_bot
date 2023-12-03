@@ -1,7 +1,7 @@
 import os
 
 
-def get_themes(course_path, part_path: str) -> dict:
+def _get_themes(course_path, part_path: str) -> dict:
     """
     get themes from ex.:django/routes/themes
     :param course_path:
@@ -19,7 +19,7 @@ def get_themes(course_path, part_path: str) -> dict:
     return theme_and_index
 
 
-def get_tasks(new_path_zero, theme_file) -> list:
+def _get_tasks(new_path_zero, theme_file) -> list:
     """
     get tasks from lesson of part
     like django/1/routes/task1.mht
@@ -46,7 +46,7 @@ def get_tasks(new_path_zero, theme_file) -> list:
     return tasks_path
 
 
-def get_theme_files_and_tasks(theme_and_index: dict, course_path, part_path) -> tuple[list, list]:
+def get_theme_files_and_tasks(theme_and_index: dict, course_path: str, part_path: str) -> tuple[list, list]:
     """
     get files from ex.: django/1/routes
     :param theme_and_index:
@@ -66,9 +66,9 @@ def get_theme_files_and_tasks(theme_and_index: dict, course_path, part_path) -> 
                 # print(theme_file)
 
             # finding a directory +
-            elif "4_files" not in theme_file and  'files' not in theme_file and '.mht' not in theme_file and '.DS' not in theme_file and '.pdf' not in theme_file and '.zip' not in theme_file:
+            elif "4_files" not in theme_file and 'files' not in theme_file and '.mht' not in theme_file and '.DS' not in theme_file and '.pdf' not in theme_file and '.zip' not in theme_file:
                 # print('+ tasks', theme_file)
-                tasks += get_tasks(new_path_zero, theme_file)
+                tasks += _get_tasks(new_path_zero, theme_file)
     # print('quiz_files and tasks', quiz_files, tasks, sep='\n')
     return quiz_files, tasks
 
@@ -78,7 +78,7 @@ def get_theme_files_and_tasks(theme_and_index: dict, course_path, part_path) -> 
     # print()
 
 
-def get_parts_path(course_path) -> tuple[list, list]:
+def _get_parts_path(course_path: str) -> tuple[list, list]:
     """
     func to get parts of courses
     like django/1, django/2
@@ -89,7 +89,7 @@ def get_parts_path(course_path) -> tuple[list, list]:
     quiz, task = [], []
     for part_path in os.listdir(course_path):
         if '.' not in part_path:
-            theme_and_index = get_themes(course_path, part_path)
+            theme_and_index = _get_themes(course_path, part_path)
             quiz_t, task_t = get_theme_files_and_tasks(theme_and_index, course_path, part_path)
             quiz += quiz_t
             task += task_t
@@ -100,7 +100,7 @@ def get_parts_path(course_path) -> tuple[list, list]:
 
 def get_main_paths():
     """
-    get courses path
+    get a course path
     :return:
     """
     path_zero = '/Users/danya/Desktop/курсы'
@@ -114,7 +114,7 @@ def get_main_paths():
     tasks_path = []
     quiz_files = []
     for course_path in main_path:
-        t1, t2 = get_parts_path(course_path)
+        t1, t2 = _get_parts_path(course_path)
         quiz_files += t1
         tasks_path += t2
     # print('main_func', tasks_path, quiz_files)

@@ -2,12 +2,14 @@ import asyncio
 import logging
 from aiogram import Bot, Dispatcher
 import handlers
+from config import config
+from keyboards.main_menu import set_main_menu
 
 # main file of bot
 
 
 # CONFIG!!!
-token = '6639949950:AAHpARLzvHi2ifbZn54DyEzep2A_fYZPgns'
+token = config.tg_bot.token
 
 # logger initializing
 logger = logging.getLogger(__name__)
@@ -26,10 +28,12 @@ async def main():
 
     # Инициализируем бот и диспетчер
     bot: Bot = Bot(token=token,
+                   parse_mode='HTML'
                    )
 
     dp: Dispatcher = Dispatcher()
     dp.include_router(handlers.router_main)
+    await set_main_menu(bot)
 
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
